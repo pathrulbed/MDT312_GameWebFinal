@@ -85,6 +85,7 @@ async function writePost(msg){
 
 async function likePost(scoreId) {
     try {
+        console.log("Liking post with score_id:", scoreId); // Log scoreId
         let requestBody = {
             score_id: scoreId,
         };
@@ -101,16 +102,14 @@ async function likePost(scoreId) {
             throw new Error(`Failed to like post: ${response.statusText}`);
         }
 
-        // Optionally log success or server response
         console.log("Post liked successfully");
-
-        // Refresh the posts to reflect the updated like count
         readPost();
     } catch (error) {
         console.error("Error liking post:", error);
         alert("Failed to like the post. Please try again.");
     }
 }
+
 
 
 // แสดง post ที่อ่านมาได้ ลงในพื้นที่ที่กำหนด
@@ -140,10 +139,10 @@ function showPost(data) {
         var likeButton = document.createElement("button");
         likeButton.className = "like-button";
         likeButton.innerHTML = "Like";
-        likeButton.onclick = function() {
-            // เพิ่มจำนวน like เมื่อคลิกปุ่ม
-            likePost(data[keys[i]]);
-           
+        likeButton.setAttribute("data-score-id", data[keys[i]]["score_id"]); // Bind the score_id
+        likeButton.onclick = function () {
+            let scoreId = this.getAttribute("data-score-id");
+            likePost(scoreId); // Call likePost function with score_id
         };
         temp.appendChild(likeButton);
 

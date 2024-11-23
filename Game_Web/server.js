@@ -145,14 +145,14 @@ app.post('/writePost', async (req, res) => {
 // Route to like a post
 app.post('/likePost', async (req, res) => {
     try {
-        let scoreId = req.body.score_id; // ID of the post to like
+        console.log(req.body); // Log the incoming request body
+        let scoreId = req.body.score_id;
         if (!scoreId) {
             return res.status(400).send("Missing score_id.");
         }
 
-        // Increment the likes for the given post
-        let query = `UPDATE scores SET likes = likes + 1 WHERE score_id = ?`;
-        await queryDB(query, [scoreId]);
+        let query = `UPDATE scores SET likes = likes + 1 WHERE score_id = '${scoreId}'`;
+        await queryDB(query);
 
         res.status(200).send("Post liked successfully!");
     } catch (error) {
@@ -160,6 +160,7 @@ app.post('/likePost', async (req, res) => {
         res.status(500).send("An error occurred while liking the post.");
     }
 });
+
 
 
 
