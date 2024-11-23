@@ -84,24 +84,79 @@ async function writePost(msg){
 }
 
 // แสดง post ที่อ่านมาได้ ลงในพื้นที่ที่กำหนด
-function showPost(data){
-	var keys = Object.keys(data);
-	var divTag = document.getElementById("feed-container");
-	divTag.innerHTML = "";
-	for (var i = keys.length-1; i >=0 ; i--) {
+function showPost(data) {
+    var keys = Object.keys(data); // ดึง Key ของ Object
+    var divTag = document.getElementById("feed-container"); // เลือก container
+    divTag.innerHTML = ""; // ล้างเนื้อหาเดิมออก
 
-		var temp = document.createElement("div");
-		temp.className = "newsfeed";
-		divTag.appendChild(temp);
-		var temp1 = document.createElement("div");
-		temp1.className = "postmsg";
-		temp1.innerHTML = data[keys[i]]["message"];
-		temp.appendChild(temp1);
-		var temp1 = document.createElement("div");
-		temp1.className = "postuser";
-		
-		temp1.innerHTML = "Posted by: "+data[keys[i]]["user"];
-		temp.appendChild(temp1);
-		
-	}
+    for (var i = 0; i < keys.length; i++) {
+        var temp = document.createElement("div");
+        temp.className = "newsfeed";
+        divTag.appendChild(temp);
+
+        // แสดงชื่อผู้ใช้
+        var userDiv = document.createElement("div");
+        userDiv.className = "postuser";
+        userDiv.innerHTML = "Posted by: " + data[keys[i]]["username"];
+        temp.appendChild(userDiv);
+
+        // แสดงจำนวน likes
+        var likeDiv = document.createElement("div");
+        likeDiv.className = "postlike";
+        likeDiv.innerHTML = "Likes: " + data[keys[i]]["like"];
+        temp.appendChild(likeDiv);
+
+        // เพิ่มปุ่ม Like
+        var likeButton = document.createElement("button");
+        likeButton.className = "like-button";
+        likeButton.innerHTML = "Like";
+        likeButton.onclick = function() {
+            // เพิ่มจำนวน like เมื่อคลิกปุ่ม
+            // var currentLikeCount = parseInt(likeDiv.innerHTML.replace("Likes: ", ""));
+            // likeDiv.innerHTML = "Likes: " + (currentLikeCount + 1);
+        };
+        temp.appendChild(likeButton);
+
+        // แสดง timescore
+        var timeDiv = document.createElement("div");
+        timeDiv.className = "posttime";
+        timeDiv.innerHTML = "Time: " + data[keys[i]]["timescore"];
+        temp.appendChild(timeDiv);
+
+        // เพิ่มช่องใส่ comment
+        var commentDiv = document.createElement("div");
+        commentDiv.className = "postcomment";
+        temp.appendChild(commentDiv);
+
+        var commentTextarea = document.createElement("textarea");
+        commentTextarea.className = "comment-textarea";
+        commentTextarea.placeholder = "Write a comment...";
+        commentDiv.appendChild(commentTextarea);
+
+        // เพิ่มปุ่มส่ง comment
+        var commentButton = document.createElement("button");
+        commentButton.className = "comment-button";
+        commentButton.innerHTML = "Post Comment";
+        commentButton.onclick = function() {
+            var commentText = commentTextarea.value;
+            if (commentText) {
+                var commentDisplay = document.createElement("div");
+                commentDisplay.className = "comment-display";
+                commentDisplay.innerHTML = commentText;
+                commentDiv.appendChild(commentDisplay);
+                commentTextarea.value = ""; // ล้าง textarea หลังจากโพสต์
+            }
+        };
+        commentDiv.appendChild(commentButton);
+
+		// เพิ่มช่องใส่ข้อความอธิบายที่สามารถ overflow ได้
+        var descriptionDiv = document.createElement("div");
+        descriptionDiv.className = "post-description";
+        descriptionDiv.innerHTML = data[keys[i]]["description"];  // ค่าข้อความอธิบายจาก data
+        temp.appendChild(descriptionDiv);
+
+        
+    }
 }
+
+

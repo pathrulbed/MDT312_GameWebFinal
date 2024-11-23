@@ -11,18 +11,18 @@ const mysql = require('mysql');
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-      callback(null, 'public/img/');
+        callback(null, 'public/img/');
     },
 
     filename: (req, file, cb) => {
         cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     }
-  });
+});
 
 const imageFilter = (req, file, cb) => {
     // Accept images only
@@ -42,16 +42,16 @@ const con = mysql.createConnection({
 })
 
 con.connect(err => {
-    if(err) throw(err);
-    else{
+    if (err) throw (err);
+    else {
         console.log("MySQL connected");
     }
 })
 
 const queryDB = (sql) => {
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         // query method
-        con.query(sql, (err,result, fields) => {
+        con.query(sql, (err, result, fields) => {
             if (err) reject(err);
             else
                 resolve(result)
@@ -60,7 +60,7 @@ const queryDB = (sql) => {
 }
 
 //ทำให้สมบูรณ์
-app.post('/regisDB', async (req,res) => {
+app.post('/regisDB', async (req, res) => {
     let now_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     let query = "CREATE TABLE IF NOT EXISTS users (user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL)";
     await queryDB(query);
@@ -74,7 +74,7 @@ app.post('/regisDB', async (req,res) => {
 })
 
 //ทำให้สมบูรณ์
-app.post('/profilepic', (req,res) => {
+app.post('/profilepic', (req, res) => {
     let upload = multer({
         storage: storage,
         fileFilter: imageFilter,
@@ -106,37 +106,44 @@ const updateImg = async (username, filen) => {
 }
 
 //ทำให้สมบูรณ์
-app.get('/logout', (req,res) => {
+app.get('/logout', (req, res) => {
     res.clearCookie('username');
     res.clearCookie('img');
     return res.redirect('login.html');
 })
 
 //ทำให้สมบูรณ์
-app.get('/readPost', async (req,res) => {
+app.get('/readPost', async (req, res) => {
     // Create table first if this is the first time.
-    let query = "CREATE TABLE IF NOT EXISTS scores (score_id INT AUTO_INCREMENT PRIMARY KEY, user VARCHAR(255) NOT NULL, message VARCHAR(500))"
+    let query = `
+    CREATE TABLE IF NOT EXISTS scores (
+        score_id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(255) NOT NULL,
+        likes INT DEFAULT 0,
+        timescore FLOAT DEFAULT 0.0
+    )
+`;
     await queryDB(query)
 
     // Let's grab all messages to show from the database.
-    let query2 = "SELECT * FROM userposts"
+    let query2 = "SELECT * FROM scores ORDER BY timescore ASC";
     let queryResponse2 = await queryDB(query2)
     let messages = Object.assign({}, queryResponse2)
     res.status(200).send(messages);
 })
 
 //ทำให้สมบูรณ์
-app.post('/writePost',async (req,res) => {
+app.post('/writePost', async (req, res) => {
     let username = req.body.user
     let message = req.body.message
-    let query = `INSERT INTO userposts (user, message) VALUES ('${username}', '${message}')`
+    let query = `INSERT INTO scores (user, message) VALUES ('${username}', '${message}')`
     await queryDB(query);
 
     res.status(200).send("OK!");
 })
 
 //ทำให้สมบูรณ์
-app.post('/checkLogin',async (req,res) => {
+app.post('/checkLogin', async (req, res) => {
     // ถ้าเช็คแล้ว username และ password ถูกต้อง
     // return res.redirect('feed.html');
     // ถ้าเช็คแล้ว username และ password ไม่ถูกต้อง
@@ -150,13 +157,11 @@ app.post('/checkLogin',async (req,res) => {
     let creds = Object.assign({}, queryResponse)
 
     let keys = Object.keys(creds);
-    for (let user of keys)
-    {
-        if (creds[user].username == username && creds[user].password == password)
-        {
+    for (let user of keys) {
+        if (creds[user].username == username && creds[user].password == password) {
             res.cookie('username', username);
             res.cookie('img', creds[user].profilepic);
-            return res.redirect('index.html');
+            return res.redirect('feed.html');
         }
     }
 
@@ -164,6 +169,6 @@ app.post('/checkLogin',async (req,res) => {
 })
 
 
- app.listen(port, hostname, () => {
-        console.log(`Server running at   http://${hostname}:${port}/index.html`);
+app.listen(port, hostname, () => {
+    console.log(`Server running at   http://${hostname}:${port}/login.html`);
 });

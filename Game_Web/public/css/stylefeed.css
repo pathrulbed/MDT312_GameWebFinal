@@ -50,33 +50,46 @@ hr {
     padding: 0; 
 } 
 
-.newsfeed{
+.newsfeed {
 	display: flex;
+	flex-wrap: wrap; /* รองรับการแสดงผลบนหน้าจอเล็ก */
 	width: 100%;
 	text-align: left;
-	font-size: 20px;
+	font-size: 18px; /* ลดขนาดฟอนต์ให้เหมาะกับการแสดงข้อมูล */
 	margin-top: 15px;
-}
+	background-color: rgba(255, 255, 255, 0.9); /* พื้นหลังโปร่งแสง */
+	border: 1px solid #ddd; /* เพิ่มเส้นขอบ */
+	border-radius: 10px;
+	padding: 10px; /* เพิ่มระยะห่างภายใน */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เงาเบาๆ เพื่อความโดดเด่น */
+  }
+  
 
-.postmsg{
-	border-radius: 20px;
-	width: 50%;
-	background-color: #FEBE9A;
-	margin-left: 15px;
-
-	height: 100px;
+  .postuser,
+  .postlike,
+  .posttime {
+	width: 30%; /* ปรับขนาดให้แสดงผล 3 คอลัมน์ */
+	min-width: 150px; /* กำหนดขนาดขั้นต่ำ */
 	text-align: center;
-	line-height: 100px;
-	min-width: 200px;
-}
-
-.postuser {
-	height: 100px;
-	width:50%;
-	text-align: center;
-	line-height: 100px;
-	min-width: 200px;
-}
+	padding: 10px; /* เพิ่มระยะห่างภายใน */
+	margin: 5px; /* ระยะห่างระหว่างกล่อง */
+	font-size: 16px; /* ขนาดฟอนต์ */
+	border-radius: 10px;
+	background-color: #f0f0f0; /* พื้นหลังสว่าง */
+  }
+  
+  .postuser {
+	background-color: #d5f5d5; /* พื้นหลังเขียวอ่อน */
+  }
+  
+  .postlike {
+	background-color: #f5d5d5; /* พื้นหลังแดงอ่อน */
+  }
+  
+  .posttime {
+	background-color: #d5d5f5; /* พื้นหลังน้ำเงินอ่อน */
+  }
+  
 
 .picicon {
 	display: inline-block;
@@ -106,10 +119,78 @@ img{
 	display: none;
 }
 
-@media only screen and (max-width: 767px){
-	.grid-container {
-		grid-template-areas:
-		  'header'
-		  'menu' 'main';
-	}
+.like-button {
+	background-color: #4cad4b;
+	color: white;
+	padding: 5px 15px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	margin-left: 10px;
+  }
+  
+  .like-button:hover {
+	background-color: #388e3c;
+  }
+  
+  .comment-textarea {
+	width: 90%;
+	min-width: 200px;
+	height: 80px;
+	margin-bottom: 10px;
+	font-size: 16px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+  }
+  
+  .comment-button {
+	background-color: #4cad4b;
+	color: white;
+	padding: 5px 15px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+  }
+  
+  .comment-button:hover {
+	background-color: #388e3c;
+  }
+  
+  .comment-display {
+	margin-top: 5px;
+	padding: 5px;
+	background-color: #f0f0f0;
+	border-radius: 5px;
+	font-size: 14px;
+  }
+  
+  .post-description {
+    max-height: 100px; /* กำหนดความสูงสูงสุดของข้อความอธิบาย */
+    overflow: scroll;  /* ซ่อนข้อความที่เกิน */
+    text-overflow: ellipsis; /* แสดง "..." เมื่อข้อความยาวเกิน */
+    margin-bottom: 10px;
+    padding: 5px;
+	padding-right: 400px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
 }
+
+
+@media only screen and (max-width: 767px) {
+	.newsfeed {
+	  flex-direction: column; /* แสดงเป็นคอลัมน์ */
+	}
+  
+	.postuser,
+	.postlike,
+	.posttime {
+	  width: 100%; /* ใช้เต็มความกว้าง */
+	  margin-bottom: 10px; /* เพิ่มระยะห่างด้านล่าง */
+	}
+  }
+  
