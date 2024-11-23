@@ -110,32 +110,66 @@ async function likePost(scoreId) {
     }
 }
 
+async function writeComment(scoreId, commentText) {
+    // Ensure that commentText is not empty before submitting
+    if (!commentText) {
+        alert("Please enter a comment before posting.");
+        return;
+    }
+
+    let commentData = {
+        score_id: scoreId,  // The ID of the post to which this comment belongs
+        username: getCookie('username'),  // Get the username from the cookie
+        text: commentText,  // The actual comment text
+    };
+
+    try {
+        let response = await fetch('/writeComment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(commentData),  // Send the comment data to the server
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to post comment: ${response.statusText}`);
+        }
+
+        // If comment was successfully added, reload the posts to show the new comment
+        readPost();  // Refresh posts to include the new comment
+    } catch (error) {
+        console.error("Error writing comment:", error);
+        alert("Failed to post comment. Please try again.");
+    }
+}
 
 
-// แสดง post ที่อ่านมาได้ ลงในพื้นที่ที่กำหนด
+
+
 function showPost(data) {
-    var keys = Object.keys(data); // ดึง Key ของ Object
-    var divTag = document.getElementById("feed-container"); // เลือก container
-    divTag.innerHTML = ""; // ล้างเนื้อหาเดิมออก
+    var keys = Object.keys(data); // Get the keys of the object (posts)
+    var divTag = document.getElementById("feed-container"); // Select container for posts
+    divTag.innerHTML = ""; // Clear existing content
 
     for (var i = 0; i < keys.length; i++) {
         var temp = document.createElement("div");
         temp.className = "newsfeed";
         divTag.appendChild(temp);
 
-        // แสดงชื่อผู้ใช้
+        // Show username of the post
         var userDiv = document.createElement("div");
         userDiv.className = "postuser";
         userDiv.innerHTML = "Posted by: " + data[keys[i]]["username"];
         temp.appendChild(userDiv);
 
-        // แสดงจำนวน likes
+        // Show number of likes
         var likeDiv = document.createElement("div");
         likeDiv.className = "postlike";
         likeDiv.innerHTML = "Likes: " + data[keys[i]]["likes"];
         temp.appendChild(likeDiv);
 
-        // เพิ่มปุ่ม Like
+        // Add a Like button
         var likeButton = document.createElement("button");
         likeButton.className = "like-button";
         likeButton.innerHTML = "Like";
@@ -146,13 +180,13 @@ function showPost(data) {
         };
         temp.appendChild(likeButton);
 
-        // แสดง timescore
+        // Show time of post
         var timeDiv = document.createElement("div");
         timeDiv.className = "posttime";
         timeDiv.innerHTML = "Time: " + data[keys[i]]["timescore"];
         temp.appendChild(timeDiv);
 
-        // เพิ่มช่องใส่ comment
+        // Add comment section
         var commentDiv = document.createElement("div");
         commentDiv.className = "postcomment";
         temp.appendChild(commentDiv);
@@ -162,31 +196,45 @@ function showPost(data) {
         commentTextarea.placeholder = "Write a comment...";
         commentDiv.appendChild(commentTextarea);
 
-        // เพิ่มปุ่มส่ง comment
+        // Add "Post Comment" button with IIFE to capture the correct score_id
         var commentButton = document.createElement("button");
         commentButton.className = "comment-button";
         commentButton.innerHTML = "Post Comment";
-        commentButton.onclick = function() {
-            var commentText = commentTextarea.value;
-            if (commentText) {
-                // var commentDisplay = document.createElement("div");
-                // commentDisplay.className = "comment-display";
-                // commentDisplay.innerHTML = commentText;
-                // commentDiv.appendChild(commentDisplay);
-                // commentTextarea.value = ""; // ล้าง textarea หลังจากโพสต์
-            }
-        };
+
+         // Debug: Add input listener to see real-time value
+         commentTextarea.addEventListener("input", function() {
+            console.log("Current textarea value: ", commentTextarea.value); // Logs each time user types
+        });
+
+        commentButton.onclick = (function(scoreId, textarea) {
+            return function() {
+                // Log the textarea value to ensure we get the correct data
+                console.log("Textarea value: " + textarea.value);  // This should log the text you type
+        
+                var commentText = textarea.value.trim();  // Get and trim the value to remove spaces
+        
+                if (!commentText) {
+                    alert("Please enter a comment before posting");  // Prompt if the comment is empty
+                    return;  // Exit if empty
+                }
+        
+                // If the comment is not empty, submit it
+                alert("Posting comment...");
+                writeComment(scoreId, commentText);  // Call the writeComment function to submit the comment
+                textarea.value = "";  // Clear the textarea after submitting
+            };
+        })(data[keys[i]]["score_id"], commentTextarea);  // Pass both score_id and the textarea element
+
         commentDiv.appendChild(commentButton);
 
-		// เพิ่มช่องใส่ข้อความอธิบายที่สามารถ overflow ได้
+        // Add description that can overflow
         var descriptionDiv = document.createElement("div");
         descriptionDiv.className = "post-description";
-        descriptionDiv.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        //descriptionDiv.innerHTML = data[keys[i]]["description"];  // ค่าข้อความอธิบายจาก data
+        descriptionDiv.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
         temp.appendChild(descriptionDiv);
-
-        
     }
 }
+
+
 
 

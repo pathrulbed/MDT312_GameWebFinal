@@ -1,8 +1,48 @@
+function checkCookie(){
+	var username = "";
+	if(getCookie("username")==false){
+		window.location = "login.html";
+	}
+}
+
+checkCookie();
+
 window.onload = pageLoad;
+
+function getCookie(name){
+	var value = "";
+	try{
+		value = document.cookie.split("; ").find(row => row.startsWith(name)).split('=')[1]
+		return value
+	}catch(err){
+		return false
+	} 
+}
+
 
 function pageLoad() {
     document.getElementById("start").onclick = startGame;
+    var username = getCookie('username');
 }
+
+async function writePost(msg){
+	let newJson = {
+		user: getCookie('username'),
+		message: msg,
+	};
+
+	let response = await fetch('/writePost', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(newJson)
+	});
+
+	//readPost();
+}
+
+
 
 function startGame() {
     addBox();   // เพิ่มกล่อง
@@ -10,31 +50,36 @@ function startGame() {
 }
 
 function timeStart() {
-    var TIMER_TICK = 1000;
+    var TIMER_TICK = 10;  // Interval in milliseconds (10ms)
     var timer = null;
-    var min = 0.5; // 0.5 นาที
-    var second = min * 60; 
+    var second = 0;  // Start counting from 0
     var x = document.getElementById('clock');
-    // ตั้งเวลาโดยใช้ setInterval
-    timer = setInterval(timeCount, TIMER_TICK);
-    
-    function timeCount() {
-        second -= 1;
-        x.innerHTML = second;
+    var lastTime = 0; 
 
-        if (second <= 0) {
-            clearInterval(timer);
-            var allbox = document.querySelectorAll("#layer div");
-            if (allbox.length > 0) {
-                clearScreen();
-                alert("Game over! Time is up.");
-            }
-        } else if (document.querySelectorAll("#layer div").length === 0) {
-            alert("You win!");
-            clearInterval(timer);
+    // Start counting up using setInterval, updating every 10ms
+    timer = setInterval(timeCount, TIMER_TICK);
+
+    function timeCount() {
+        second += TIMER_TICK / 1000;  // Increment time by 10ms (TIMER_TICK in ms)
+
+        // Format time to 3 decimal places and update the clock display
+        x.innerHTML = `Time: ${second.toFixed(2)} sec`;
+
+        // Check if #layer div elements are empty
+        var allbox = document.querySelectorAll("#layer div");
+        if (allbox.length === 0) {
+            //alert("You win!");
+            lastTime = second.toFixed(2);
+            writePost(lastTime);
+            clearInterval(timer);  // Stop the timer when all divs are removed
+           
         }
     }
 }
+
+
+
+
 
 function moveBox(box) {
     // สุ่มทิศทางการเคลื่อนที่ในแกน X และ Y

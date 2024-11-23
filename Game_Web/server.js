@@ -191,6 +191,61 @@ app.post('/checkLogin', async (req, res) => {
     return res.redirect('login.html?error=1');
 })
 
+// app.get('/readComment', async (req, res) => {
+//     console.log(req.body); // Log the incoming request body
+//         let scoreId = req.body.score_id;
+//     // Create table first if this is the first time.
+//     let query = `
+//     CREATE TABLE IF NOT EXISTS comments (
+//         comment_id INT AUTO_INCREMENT PRIMARY KEY,
+//         username VARCHAR(255) NOT NULL,
+//         text VARCHAR(255) NOT NULL,
+//         score_id VARCHAR(255) NOT NULL
+//     )
+// `;
+//     await queryDB(query)
+
+//     // Let's grab all messages to show from the database.
+//     let query2 = "SELECT * FROM comments WHERE score_id = '${scoreId}'";
+//     let queryResponse2 = await queryDB(query2)
+//     let messages = Object.assign({}, queryResponse2)
+//     res.status(200).send(messages);
+// })
+
+app.post('/writeComment', async (req, res) => {
+    const { score_id, username, text } = req.body;
+
+    // Create the comments table if it doesn't exist
+    let createTableQuery = `
+        CREATE TABLE IF NOT EXISTS comments (
+            comment_id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL,
+            text VARCHAR(255) NOT NULL,
+            score_id VARCHAR(255) NOT NULL
+        )
+    `;
+
+    // Insert the comment into the database
+    let insertQuery = `
+        INSERT INTO comments (score_id, username, text)
+        VALUES ('${score_id}', '${username}', '${text}')
+    `;
+
+    try {
+        // Create the table if it doesn't exist
+        await queryDB(createTableQuery);
+
+        // Insert the comment into the table
+        await queryDB(insertQuery);
+
+        res.status(200).send({ message: 'Comment posted successfully' });
+    } catch (err) {
+        console.error('Error posting comment:', err);
+        res.status(500).send({ error: 'Failed to post comment' });
+    }
+});
+
+
 
 app.listen(port, hostname, () => {
     console.log(`Server running at   http://${hostname}:${port}/login.html`);
