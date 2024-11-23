@@ -83,6 +83,36 @@ async function writePost(msg){
 	readPost();
 }
 
+async function likePost(scoreId) {
+    try {
+        let requestBody = {
+            score_id: scoreId,
+        };
+
+        let response = await fetch('/likePost', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to like post: ${response.statusText}`);
+        }
+
+        // Optionally log success or server response
+        console.log("Post liked successfully");
+
+        // Refresh the posts to reflect the updated like count
+        readPost();
+    } catch (error) {
+        console.error("Error liking post:", error);
+        alert("Failed to like the post. Please try again.");
+    }
+}
+
+
 // แสดง post ที่อ่านมาได้ ลงในพื้นที่ที่กำหนด
 function showPost(data) {
     var keys = Object.keys(data); // ดึง Key ของ Object
@@ -103,7 +133,7 @@ function showPost(data) {
         // แสดงจำนวน likes
         var likeDiv = document.createElement("div");
         likeDiv.className = "postlike";
-        likeDiv.innerHTML = "Likes: " + data[keys[i]]["like"];
+        likeDiv.innerHTML = "Likes: " + data[keys[i]]["likes"];
         temp.appendChild(likeDiv);
 
         // เพิ่มปุ่ม Like
@@ -112,8 +142,8 @@ function showPost(data) {
         likeButton.innerHTML = "Like";
         likeButton.onclick = function() {
             // เพิ่มจำนวน like เมื่อคลิกปุ่ม
-            // var currentLikeCount = parseInt(likeDiv.innerHTML.replace("Likes: ", ""));
-            // likeDiv.innerHTML = "Likes: " + (currentLikeCount + 1);
+            likePost(data[keys[i]]);
+           
         };
         temp.appendChild(likeButton);
 
@@ -140,11 +170,11 @@ function showPost(data) {
         commentButton.onclick = function() {
             var commentText = commentTextarea.value;
             if (commentText) {
-                var commentDisplay = document.createElement("div");
-                commentDisplay.className = "comment-display";
-                commentDisplay.innerHTML = commentText;
-                commentDiv.appendChild(commentDisplay);
-                commentTextarea.value = ""; // ล้าง textarea หลังจากโพสต์
+                // var commentDisplay = document.createElement("div");
+                // commentDisplay.className = "comment-display";
+                // commentDisplay.innerHTML = commentText;
+                // commentDiv.appendChild(commentDisplay);
+                // commentTextarea.value = ""; // ล้าง textarea หลังจากโพสต์
             }
         };
         commentDiv.appendChild(commentButton);
@@ -152,7 +182,8 @@ function showPost(data) {
 		// เพิ่มช่องใส่ข้อความอธิบายที่สามารถ overflow ได้
         var descriptionDiv = document.createElement("div");
         descriptionDiv.className = "post-description";
-        descriptionDiv.innerHTML = data[keys[i]]["description"];  // ค่าข้อความอธิบายจาก data
+        descriptionDiv.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+        //descriptionDiv.innerHTML = data[keys[i]]["description"];  // ค่าข้อความอธิบายจาก data
         temp.appendChild(descriptionDiv);
 
         

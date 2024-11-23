@@ -88,6 +88,12 @@ hr {
   
   .posttime {
 	background-color: #d5d5f5; /* พื้นหลังน้ำเงินอ่อน */
+	max-height: 150px;
+	text-align: center;
+	font-size: 30px;
+	display: flex; /* Enable Flexbox */
+	justify-content: center; /* Center horizontally */
+	align-items: center; /* Center vertically */
   }
   
 
@@ -169,11 +175,12 @@ img{
   
   .post-description {
     max-height: 100px; /* กำหนดความสูงสูงสุดของข้อความอธิบาย */
-    overflow: scroll;  /* ซ่อนข้อความที่เกิน */
+	overflow: scroll;
     text-overflow: ellipsis; /* แสดง "..." เมื่อข้อความยาวเกิน */
-    margin-bottom: 10px;
+	max-width: 300px;
+    margin-bottom: 100px;
     padding: 5px;
-	padding-right: 400px;
+	padding-right: 200px;
     font-size: 16px;
     background-color: #f9f9f9;
     border-radius: 5px;

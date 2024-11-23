@@ -136,11 +136,33 @@ app.get('/readPost', async (req, res) => {
 app.post('/writePost', async (req, res) => {
     let username = req.body.user
     let message = req.body.message
-    let query = `INSERT INTO scores (user, message) VALUES ('${username}', '${message}')`
+    let query = `INSERT INTO scores (score_id, username, likes, timescore ) VALUES ('NULL', '${username}','NULL','${message}')`
     await queryDB(query);
 
     res.status(200).send("OK!");
 })
+
+// Route to like a post
+app.post('/likePost', async (req, res) => {
+    try {
+        let scoreId = req.body.score_id; // ID of the post to like
+        if (!scoreId) {
+            return res.status(400).send("Missing score_id.");
+        }
+
+        // Increment the likes for the given post
+        let query = `UPDATE scores SET likes = likes + 1 WHERE score_id = ?`;
+        await queryDB(query, [scoreId]);
+
+        res.status(200).send("Post liked successfully!");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred while liking the post.");
+    }
+});
+
+
+
 
 //ทำให้สมบูรณ์
 app.post('/checkLogin', async (req, res) => {
