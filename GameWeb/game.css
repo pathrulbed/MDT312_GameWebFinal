@@ -1,0 +1,48 @@
+#container {
+	margin-top: 30px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+body{
+    background-color: rgb(244, 255, 184);
+}
+
+legend{
+    font-weight: bold;
+    background-color: rgb(240, 210, 146);
+    border: 3px solid rgb(130, 177, 0);
+}
+
+fieldset{
+    background-color: rgb(253, 255, 235);
+    font-family: 'Courier New', Courier, monospace;
+    border: 3px solid rgb(130, 177, 0);
+}
+
+#layer {
+    position: relative;
+    width: 900px;
+    height: 600px;
+    background-color: rgb(240, 210, 146);
+    border: 3px solid rgb(130, 177, 0);
+}
+
+.square {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgb(255, 255, 255);
+}
+
+.maroon{
+    background-color: maroon; 
+}
+.lightgreen{
+    background-color: lightgreen; 
+}
+
+.magenta{
+    background-color: magenta; 
+}
