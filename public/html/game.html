@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="container">
+        <fieldset>
+            <legend>Game Settings</legend>
+            <label for="numbox">Number of boxes: </label>
+            <input type="number" id="numbox" min="1" max="50" required><br>
+            <label for="color">Choose box color: </label>
+            <select id="color">
+                <option value="maroon">Maroon</option>
+                <option value="lightgreen">Light Green</option>
+                <option value="magenta">Magenta</option>
+            </select><br><br>
+            <button id="start">Start Game</button>
+            <div id="clock"></div>
+        </fieldset>
+    </div>
+    <div id="layer"></div>
+    <script src="js/game.js"></script>
+</body>
+</html>

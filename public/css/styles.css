@@ -1,0 +1,76 @@
+body {
+    font-family: "Itim", cursive;
+    color: rgb(255, 255, 255);
+    background-color: rgb(85, 124, 126);
+}
+
+fieldset {
+    border-radius: 8%;
+    border: 3px solid rgb(243, 205, 227);
+    background-color: rgba(126, 85, 117, 0.37);
+}
+
+#container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+input {
+    border-radius: 8%;
+    color: rgb(255, 255, 255);
+    border: 3px solid rgb(243, 205, 227);
+    background-color: rgba(0, 0, 0, 0.363);
+    font-family: "Itim", cursive;
+    font-size: small;
+}
+
+select {
+    border-radius: 8%;
+    color: rgb(255, 255, 255);
+    border: 3px solid rgb(243, 205, 227);
+    background-color: rgba(0, 0, 0, 0.363);
+}
+
+option {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
+
+button {
+    border-radius: 8%;
+    color: rgb(0, 126, 245);
+    font-family: "Itim", cursive;
+    font-size: small;
+    border: 3px solid rgb(243, 205, 227);
+    background-color: rgb(243, 205, 227);
+}
+
+#layer {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: rgba(126, 85, 117, 0.37);
+    border: 3px solid aliceblue;
+    border-radius: 4%;
+}
+
+.square {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border: 3px solid black;
+    border-radius: 4%;
+}
+
+.maroon {
+    background-color: maroon;
+}
+
+.lightgreen {
+    background-color: lightgreen;
+}
+
+.magenta {
+    background-color: magenta;
+}
