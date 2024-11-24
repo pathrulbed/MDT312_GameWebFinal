@@ -110,37 +110,32 @@ async function likePost(scoreId) {
     }
 }
 
-async function writeComment(scoreId, commentText) {
-    // Ensure that commentText is not empty before submitting
-    if (!commentText) {
-        alert("Please enter a comment before posting.");
-        return;
-    }
-
-    let commentData = {
-        score_id: scoreId,  // The ID of the post to which this comment belongs
-        username: getCookie('username'),  // Get the username from the cookie
-        text: commentText,  // The actual comment text
-    };
-
+async function writeComment(scoreId,message) {
     try {
+        console.log("Liking post with score_id:", scoreId); // Log scoreId
+        let requestBody = {
+            score_id: scoreId,
+            message: message,
+            username: getCookie('username')
+        };
+
         let response = await fetch('/writeComment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(commentData),  // Send the comment data to the server
+            body: JSON.stringify(requestBody),
         });
 
         if (!response.ok) {
-            throw new Error(`Failed to post comment: ${response.statusText}`);
+            throw new Error(`Failed to like post: ${response.statusText}`);
         }
 
-        // If comment was successfully added, reload the posts to show the new comment
-        readPost();  // Refresh posts to include the new comment
+        console.log("Post liked successfully");
+        readPost();
     } catch (error) {
-        console.error("Error writing comment:", error);
-        alert("Failed to post comment. Please try again.");
+        console.error("Error liking post:", error);
+        alert("Failed to like the post. Please try again.");
     }
 }
 
@@ -201,36 +196,23 @@ function showPost(data) {
         commentButton.className = "comment-button";
         commentButton.innerHTML = "Post Comment";
 
-         // Debug: Add input listener to see real-time value
-         commentTextarea.addEventListener("input", function() {
-            console.log("Current textarea value: ", commentTextarea.value); // Logs each time user types
-        });
+       
+        
+        let text = "comment : "+ commentTextarea.innerHTML;
 
-        commentButton.onclick = (function(scoreId, textarea) {
-            return function() {
-                // Log the textarea value to ensure we get the correct data
-                console.log("Textarea value: " + textarea.value);  // This should log the text you type
-        
-                var commentText = textarea.value.trim();  // Get and trim the value to remove spaces
-        
-                if (!commentText) {
-                    alert("Please enter a comment before posting");  // Prompt if the comment is empty
-                    return;  // Exit if empty
-                }
-        
-                // If the comment is not empty, submit it
-                alert("Posting comment...");
-                writeComment(scoreId, commentText);  // Call the writeComment function to submit the comment
-                textarea.value = "";  // Clear the textarea after submitting
-            };
-        })(data[keys[i]]["score_id"], commentTextarea);  // Pass both score_id and the textarea element
+        commentButton.setAttribute("data-score-id", data[keys[i]]["score_id"]); // Bind the score_id
+        commentButton.onclick = function () {
+            let scoreId = this.getAttribute("data-score-id");
+            let comment = this.previousElementSibling.value; // Get the value from the textarea
+            writeComment(scoreId,comment); // Call likePost function with score_id
+        };
 
         commentDiv.appendChild(commentButton);
 
         // Add description that can overflow
         var descriptionDiv = document.createElement("div");
         descriptionDiv.className = "post-description";
-        descriptionDiv.innerHTML = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.";
+        descriptionDiv.innerHTML = data[keys[i]]["comments"];
         temp.appendChild(descriptionDiv);
     }
 }

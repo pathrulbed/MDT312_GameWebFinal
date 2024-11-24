@@ -120,7 +120,8 @@ app.get('/readPost', async (req, res) => {
         score_id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(255) NOT NULL,
         likes INT DEFAULT 0,
-        timescore FLOAT DEFAULT 0.0
+        timescore FLOAT DEFAULT 0.0,
+        comments VARCHAR(255) NOT NULL
     )
 `;
     await queryDB(query)
@@ -136,7 +137,7 @@ app.get('/readPost', async (req, res) => {
 app.post('/writePost', async (req, res) => {
     let username = req.body.user
     let message = req.body.message
-    let query = `INSERT INTO scores (score_id, username, likes, timescore ) VALUES ('NULL', '${username}','NULL','${message}')`
+    let query = `INSERT INTO scores (score_id, username, likes, timescore, comments ) VALUES ('NULL', '${username}','NULL','${message}',"No Comment")`
     await queryDB(query);
 
     res.status(200).send("OK!");
@@ -160,6 +161,30 @@ app.post('/likePost', async (req, res) => {
         res.status(500).send("An error occurred while liking the post.");
     }
 });
+
+// Route to like a post
+app.post('/writeComment', async (req, res) => {
+    try {
+        console.log(req.body); // Log the incoming request body
+        let scoreId = req.body.score_id;
+        let message = req.body.message;
+        let username = req.body.username;
+        if (!scoreId) {
+            return res.status(400).send("Missing score_id.");
+        }
+
+        
+        let text = `${username} : ${message}\\n`; // Add \n for newlines
+        let query = `UPDATE scores SET comments = CONCAT(IFNULL(comments, ''), '${text}') WHERE score_id = '${scoreId}'`;
+        await queryDB(query);
+
+        res.status(200).send("Comment liked successfully!");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred while liking the post.");
+    }
+});
+
 
 
 
@@ -212,38 +237,6 @@ app.post('/checkLogin', async (req, res) => {
 //     res.status(200).send(messages);
 // })
 
-app.post('/writeComment', async (req, res) => {
-    const { score_id, username, text } = req.body;
-
-    // Create the comments table if it doesn't exist
-    let createTableQuery = `
-        CREATE TABLE IF NOT EXISTS comments (
-            comment_id INT AUTO_INCREMENT PRIMARY KEY,
-            username VARCHAR(255) NOT NULL,
-            text VARCHAR(255) NOT NULL,
-            score_id VARCHAR(255) NOT NULL
-        )
-    `;
-
-    // Insert the comment into the database
-    let insertQuery = `
-        INSERT INTO comments (score_id, username, text)
-        VALUES ('${score_id}', '${username}', '${text}')
-    `;
-
-    try {
-        // Create the table if it doesn't exist
-        await queryDB(createTableQuery);
-
-        // Insert the comment into the table
-        await queryDB(insertQuery);
-
-        res.status(200).send({ message: 'Comment posted successfully' });
-    } catch (err) {
-        console.error('Error posting comment:', err);
-        res.status(500).send({ error: 'Failed to post comment' });
-    }
-});
 
 
 
