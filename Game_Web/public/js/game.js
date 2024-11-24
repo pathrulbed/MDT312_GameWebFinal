@@ -45,6 +45,7 @@ async function writePost(msg){
 
 
 function startGame() {
+    document.getElementById("start").style.display = "none"; // ซ่อนปุ่ม
     addBox();   // เพิ่มกล่อง
     timeStart(); // เริ่มจับเวลา
 }
@@ -127,12 +128,13 @@ function moveBox(box) {
 }
 
 
-
+let remainingCrabs = 0; // จำนวนปูเริ่มต้น
+const totalCrabs = 30; // จำนวนปูทั้งหมด
 
 function addBox() {
-    var numbox = document.getElementById("numbox").value; // จำนวนกล่อง
+    var numbox = totalCrabs; // จำนวนกล่องที่สร้าง
     var gameLayer = document.getElementById("layer");
-    var colorDrop = document.getElementById("color").value; // สีจากการเลือกของผู้ใช้
+    var colorDrop = "maroon"//document.getElementById("color").value; // สีจากการเลือกของผู้ใช้
 
     for (var i = 0; i < numbox; i++) {
         var tempbox = document.createElement("div");
@@ -149,14 +151,33 @@ function addBox() {
         moveBox(tempbox);
         bindBox(tempbox);
     }
+    updateRemaining();
 }
+
+
 
 
 function bindBox(box) {
     // เมื่อคลิกที่กล่อง กล่องจะหายไป
     box.onclick = function() {
         box.remove();
+
+        if (remainingCrabs < totalCrabs) {
+            remainingCrabs++; // เพิ่มจำนวนปู
+        }
+        updateRemaining();
+
+         // ตรวจสอบว่ากล่องทั้งหมดหายไปแล้วหรือไม่
+         if (document.querySelectorAll("#layer .square").length === 0) {
+            document.getElementById("start").style.display = "block"; // แสดงปุ่มอีกครั้ง
+        }
     }
+}
+function updateRemaining() {
+    const remainingDiv = document.getElementById('remaining');
+    const usernameDiv = document.getElementById('username');
+    usernameDiv.textContent = 'Username :';
+    remainingDiv.textContent = `Remaining : ${remainingCrabs}/${totalCrabs}`;
 }
 
 function clearScreen() {

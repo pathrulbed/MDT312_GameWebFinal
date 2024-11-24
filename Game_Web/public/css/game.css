@@ -9,11 +9,52 @@ body{
     background-color: rgb(244, 255, 184);
 }
 
-legend{
-    font-weight: bold;
-    background-color: rgb(240, 210, 146);
-    border: 3px solid rgb(130, 177, 0);
+fieldset {
+    display: flex;
+    justify-content: space-between; /* จัดการให้ปุ่มต่าง ๆ อยู่ตามตำแหน่งที่ต้องการ */
+    align-items: center;
+    padding: 10px;
 }
+
+.fieldset-container {
+    width: 100%; /* ให้พื้นที่ทั้งหมดใน fieldset */
+    display: flex;
+    justify-content: space-between; /* ปุ่มจะชิดซ้าย ขวา และชื่อเกมตรงกลาง */
+    align-items: center;
+}
+
+.fieldset-text {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 130px;
+    flex-grow: 1; /* ทำให้ชื่อเกมขยายไปกลางระหว่างปุ่ม */
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: rgb(130, 177, 0);
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.button:hover {
+    background-color: rgb(100, 140, 0);
+}
+
+.feed-button {
+    text-align: left;
+}
+
+
 
 fieldset{
     background-color: rgb(253, 255, 235);
@@ -34,6 +75,59 @@ fieldset{
     width: 25px;
     height: 25px;
     border: 3px solid rgb(255, 255, 255);
+}
+
+.center-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(130, 177, 0);
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#clock {
+    position: absolute;
+    bottom: 5px; /* ช่วยให้ข้อความอยู่ใต้กล่อง */
+    left: 74%;
+    transform: translateX(-50%); /* จัดตำแหน่งให้ตรงกลาง */
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    color: black; /* เปลี่ยนเป็นสีดำ */
+}
+
+#remaining {
+    position: absolute;
+    bottom: 5px; /* อยู่ใต้กล่องเกม */
+    right: 62%;
+    transform: translateX(-50%); /* จัดตำแหน่งให้ตรงกลาง */
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    color: black; /* สีดำ */
+    font-weight: bold;
+}
+
+#username {
+    position: absolute;
+    top: 77px; /* กำหนดให้แสดงอยู่ที่ด้านบน */
+    right: 68.5%; /* จัดให้อยู่ตรงกลาง */
+    transform: translateX(-50%); /* ปรับตำแหน่งให้ตรงกลางพอดี */
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    color: black;
+    font-weight: bold;
+    z-index: 10; /* เพื่อให้แน่ใจว่าอยู่เหนือกล่อง */
+}
+
+
+
+.center-button:hover {
+    background-color: rgb(100, 140, 0);
 }
 
 .maroon{
