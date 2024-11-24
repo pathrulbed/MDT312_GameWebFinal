@@ -37,7 +37,7 @@ const imageFilter = (req, file, cb) => {
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "2134",
+    password: "",
     database: "online_game"
 })
 

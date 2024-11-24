@@ -5,21 +5,25 @@
 		<title>Register</title>
 		<link type="text/css" rel="stylesheet" href="css/style.css">
 		<script type="text/javascript" src="js/login.js"></script>
+		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 	</head>
 	<body>
-
+		<h1> เกมจับปูใส่กระด้ง </h1>
 		<div class=wrapper>
 			<form class="form" action="/regisDB" method="post" accept-charset="utf-8">
-					<h1> Register </h1>
 					<div class="input-box">
 						<input type="text" name="username" value="" placeholder="Username" required>
-						<i class='bx bxs-user-badge'></i>
+						<i class='bx bxs-user-rectangle' ></i>
+					</div>
+					<div class="input-box">
+						<input type="text" name="email" value="" placeholder="Email.com" required>
+						<i class='bx bxs-envelope'></i>
 					</div>
 					<div class="input-box">
 						<input type="password" name="password" value="" placeholder="Password" required>
 						<i class='bx bxs-lock-alt'></i>
 					</div>
-					<button type="submit" class="btn" value="Register">Register</button>
+					<button type="submit" class="btn" value="Register">Register <i class='bx bxs-edit-alt' ></i></button>
 
 					<div class="register-link">
 						<p>Alredy have an account? <a href="#">Login</a></p>
