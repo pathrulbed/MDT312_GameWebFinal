@@ -71,8 +71,8 @@ function timeStart() {
         x.innerHTML = `เวลา: ${second.toFixed(2)} วินาที`;
 
         // Check if #layer div elements are empty
-        var allbox = document.querySelectorAll("#layer div");
-        if (allbox.length === 0) {
+      
+        if (remainingCrabs === 30 ) {
             //alert("You win!");
             lastTime = second.toFixed(2);
             writePost(lastTime);
