@@ -1,7 +1,7 @@
 function checkCookie(){
 	var username = "";
 	if(getCookie("username")==false){
-		window.location = "login.html";
+		window.location = "index.html";
 	}
 }
 
@@ -21,12 +21,12 @@ function getCookie(name){
 
 
 function pageLoad() {
-    var username = getCookie('username');
-	document.getElementById("username").innerHTML = username;
     document.getElementById("start").onclick = startGame;
    
 
+    var username = getCookie('username');
 
+	document.getElementById("username").innerHTML = username;
 }
 
 async function writePost(msg){
@@ -68,7 +68,7 @@ function timeStart() {
         second += TIMER_TICK / 1000;  // Increment time by 10ms (TIMER_TICK in ms)
 
         // Format time to 3 decimal places and update the clock display
-        x.innerHTML = `Time: ${second.toFixed(2)} sec`;
+        x.innerHTML = `เวลา: ${second.toFixed(2)} วินาที`;
 
         // Check if #layer div elements are empty
         var allbox = document.querySelectorAll("#layer div");
@@ -76,6 +76,7 @@ function timeStart() {
             //alert("You win!");
             lastTime = second.toFixed(2);
             writePost(lastTime);
+            remainingCrabs = 0;
             clearInterval(timer);  // Stop the timer when all divs are removed
            
         }
@@ -95,7 +96,7 @@ function moveBox(box) {
     var moveSpeedX = Math.random() * 4 + 2; // ความเร็วในแกน X
     var moveSpeedY = Math.random() * 4 + 2; // ความเร็วในแกน Y
 
-    var boxSize = 50;     // ขนาดของกล่อง
+    var boxSize = 100;     // ขนาดของกล่อง
     
     // ตั้งค่าตำแหน่งเริ่มต้นให้กล่องเกิดตรงกลาง
     var boxX = Math.random() * (500 - boxSize);  // ตำแหน่ง X ของกล่อง
@@ -144,7 +145,7 @@ function addBox() {
         var tempbox = document.createElement("div");
         tempbox.className = `square ${colorDrop}`; // ตั้งสีจากตัวเลือก
         tempbox.id = "box" + i;
-        var boxSize = 50; // ขนาดปู 50px
+        var boxSize = 135; // ขนาดกล่อง 50px
         tempbox.style.width = boxSize + "px";  // ตั้งความกว้างของกล่อง
         tempbox.style.height = boxSize + "px"; // ตั้งความสูงของกล่อง
         tempbox.style.left = Math.random() * (500 - boxSize) + "px"; // ปรับให้กล่องไม่ออกขอบ
@@ -180,8 +181,7 @@ function bindBox(box) {
 function updateRemaining() {
     const remainingDiv = document.getElementById('remaining');
     const usernameDiv = document.getElementById('username');
-  //  usernameDiv.textContent = 'Username :';
-    remainingDiv.textContent = `Remaining : ${remainingCrabs}/${totalCrabs}`;
+    remainingDiv.textContent = `จับได้ : ${remainingCrabs}/${totalCrabs}`;
 }
 
 function clearScreen() {

@@ -161,7 +161,7 @@ function showPost(data) {
         // Show username of the post
         var userDiv = document.createElement("div");
         userDiv.className = "postuser";
-        userDiv.innerHTML = "Posted by: " + data[keys[i]]["username"];
+        userDiv.innerHTML = "Played by: " + data[keys[i]]["username"];
         temp.appendChild(userDiv);
 
         // Show number of likes
