@@ -2,6 +2,13 @@
 .item2 { grid-area: menu; }
 .item3 { grid-area: main; }
 
+header{
+	background-image: url('bgPuna.png'); /* Set background image */
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the image */
+}
+
+
 .grid-container {
   display: grid;
   grid-template-areas:

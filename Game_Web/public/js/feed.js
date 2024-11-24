@@ -165,12 +165,12 @@ function showPost(data) {
         temp.appendChild(likeDiv);
 
         // Add a Like button
-var likeButton = document.createElement("button");
-likeButton.className = "like-button";
-likeButton.innerHTML = "Like";
-likeButton.setAttribute("data-score-id", data[keys[i]]["score_id"]); // Bind the score_id
+        var likeButton = document.createElement("button");
+        likeButton.className = "like-button";
+        likeButton.innerHTML = "Like";
+        likeButton.setAttribute("data-score-id", data[keys[i]]["score_id"]); // Bind the score_id
 
-likeButton.onclick = function () {
+    likeButton.onclick = function () {
     let scoreId = this.getAttribute("data-score-id");
     let username = getCookie('username'); // Get the username from cookies
 
