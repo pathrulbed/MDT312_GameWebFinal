@@ -13,8 +13,10 @@
 body {
 	font-family: "Charm", cursive;
     /* Set the background image correctly */
-    background: url('crab.png') no-repeat center -1400px;
-    background-size: cover;
+    background: url('crab.png') center -500px  ;
+    background-size: contain;
+
+	
     color: #ffb300;
     display: flex;
     justify-content: center; /* Horizontally center */

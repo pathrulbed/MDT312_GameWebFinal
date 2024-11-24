@@ -8,8 +8,9 @@
 
 body {
     /* Set the background image correctly */
-    background: url('crab.png') no-repeat center -1400px;
-    background-size: cover;
+	background: url('crab.png') no-repeat center;
+    background-size: contain; /* Makes the image fit within the viewport */
+    background-attachment: fixed; /* Keeps the background in place during scrolling */
     color: #5a2d15;
     display: flex;
     justify-content: center; /* Horizontally center */
