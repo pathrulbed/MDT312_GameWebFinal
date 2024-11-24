@@ -196,9 +196,6 @@ function showPost(data) {
         commentButton.className = "comment-button";
         commentButton.innerHTML = "Post Comment";
 
-       
-        
-        let text = "comment : "+ commentTextarea.innerHTML;
 
         commentButton.setAttribute("data-score-id", data[keys[i]]["score_id"]); // Bind the score_id
         commentButton.onclick = function () {
@@ -212,8 +209,13 @@ function showPost(data) {
         // Add description that can overflow
         var descriptionDiv = document.createElement("div");
         descriptionDiv.className = "post-description";
-        descriptionDiv.innerHTML = data[keys[i]]["comments"];
+        descriptionDiv.placeholder = "No Comment";
+        descriptionDiv.innerHTML = (data[keys[i]]["comments"] || "").replace(/\n/g, "<br>");
+        descriptionDiv.scrollTop = descriptionDiv.scrollHeight;
         temp.appendChild(descriptionDiv);
+
+       
+
     }
 }
 

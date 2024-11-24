@@ -121,7 +121,7 @@ app.get('/readPost', async (req, res) => {
         username VARCHAR(255) NOT NULL,
         likes INT DEFAULT 0,
         timescore FLOAT DEFAULT 0.0,
-        comments VARCHAR(255) NOT NULL
+        comments VARCHAR(100000000) NOT NULL
     )
 `;
     await queryDB(query)
@@ -137,7 +137,7 @@ app.get('/readPost', async (req, res) => {
 app.post('/writePost', async (req, res) => {
     let username = req.body.user
     let message = req.body.message
-    let query = `INSERT INTO scores (score_id, username, likes, timescore, comments ) VALUES ('NULL', '${username}','NULL','${message}',"No Comment")`
+    let query = `INSERT INTO scores (score_id, username, likes, timescore, comments ) VALUES ('NULL', '${username}','NULL','${message}',"")`
     await queryDB(query);
 
     res.status(200).send("OK!");

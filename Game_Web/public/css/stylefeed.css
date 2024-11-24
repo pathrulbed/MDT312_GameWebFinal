@@ -174,12 +174,12 @@ img{
   }
   
   .post-description {
-    max-height: 100px; /* กำหนดความสูงสูงสุดของข้อความอธิบาย */
+    max-height: 150px; /* กำหนดความสูงสูงสุดของข้อความอธิบาย */
 	overflow: scroll;
     text-overflow: ellipsis; /* แสดง "..." เมื่อข้อความยาวเกิน */
 	max-width: 300px;
     margin-bottom: 100px;
-    padding: 5px;
+    /* padding: 5px; */
 	padding-right: 200px;
     font-size: 16px;
     background-color: #f9f9f9;
