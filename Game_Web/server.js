@@ -62,7 +62,7 @@ const queryDB = (sql) => {
 //ทำให้สมบูรณ์
 app.post('/regisDB', async (req, res) => {
     let now_date = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    let query = "CREATE TABLE IF NOT EXISTS users (user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL)";
+    let query = "CREATE TABLE IF NOT EXISTS users (user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL,profilepic VARCHAR(255) DEFAULT 'avatar.png')";
     await queryDB(query);
 
     let username = req.body.username;
@@ -101,7 +101,7 @@ app.post('/profilepic', (req, res) => {
 })
 
 const updateImg = async (username, filen) => {
-    let query = `UPDATE userinfo SET profilepic = '${filen}' WHERE username = '${username}'`
+    let query = `UPDATE users SET profilepic = '${filen}' WHERE username = '${username}'`
     await queryDB(query);
 }
 
@@ -209,7 +209,7 @@ app.post('/checkLogin', async (req, res) => {
         if (creds[user].username == username && creds[user].password == password) {
             res.cookie('username', username);
             res.cookie('img', creds[user].profilepic);
-            return res.redirect('feed.html');
+            return res.redirect('index.html');
         }
     }
 

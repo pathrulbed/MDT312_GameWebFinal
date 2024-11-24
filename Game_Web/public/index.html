@@ -5,6 +5,7 @@
 	<meta charset="UTF-8">
 	<title>Square game</title>
 	<script type="text/javascript" src="js/game.js"></script>
+	<!-- <script type="text/javascript" src="js/feed.js"></script> -->
 	<link rel="stylesheet" type="text/css" href="css/game.css">
 </head>
 
@@ -13,16 +14,16 @@
 
 	<fieldset>
 		<div class="fieldset-container">
-			<a href="feed.html" class="button feed-button">Feed</a> <!-- ปุ่ม Feed ชิดซ้าย -->
+			<a href="feed.html" class="button feed-button">Scoreboard</a> <!-- ปุ่ม Feed ชิดซ้าย -->
 			<div class="fieldset-text">เกมจับปูใส่กระด้ง</div> <!-- ชื่อเกมอยู่กลาง -->
 			<div class="button-container">
-				<a href="register.html" class="button">Register</a>
-				<a href="login.html" class="button">Login</a>
+				<!-- <a href="register.html" class="button">Register</a> -->
+				<a href="/logout" class="button">Logout</a>
 			</div>
 		</div>
 	</fieldset>
 
-	<div id="username"></div>
+	<div id="username">Guest</div>
 	<div id="container">
 		<div id="layer">
 			<button id="start" class="center-button">Start</button>

@@ -21,8 +21,12 @@ function getCookie(name){
 
 
 function pageLoad() {
-    document.getElementById("start").onclick = startGame;
     var username = getCookie('username');
+	document.getElementById("username").innerHTML = username;
+    document.getElementById("start").onclick = startGame;
+   
+
+
 }
 
 async function writePost(msg){
@@ -140,7 +144,7 @@ function addBox() {
         var tempbox = document.createElement("div");
         tempbox.className = `square ${colorDrop}`; // ตั้งสีจากตัวเลือก
         tempbox.id = "box" + i;
-        var boxSize = 50; // ขนาดกล่อง 50px
+        var boxSize = 50; // ขนาดปู 50px
         tempbox.style.width = boxSize + "px";  // ตั้งความกว้างของกล่อง
         tempbox.style.height = boxSize + "px"; // ตั้งความสูงของกล่อง
         tempbox.style.left = Math.random() * (500 - boxSize) + "px"; // ปรับให้กล่องไม่ออกขอบ
@@ -176,7 +180,7 @@ function bindBox(box) {
 function updateRemaining() {
     const remainingDiv = document.getElementById('remaining');
     const usernameDiv = document.getElementById('username');
-    usernameDiv.textContent = 'Username :';
+  //  usernameDiv.textContent = 'Username :';
     remainingDiv.textContent = `Remaining : ${remainingCrabs}/${totalCrabs}`;
 }
 

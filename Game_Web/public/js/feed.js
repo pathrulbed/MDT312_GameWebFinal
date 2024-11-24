@@ -152,6 +152,12 @@ function showPost(data) {
         temp.className = "newsfeed";
         divTag.appendChild(temp);
 
+        var userDiv = document.createElement("div");
+        userDiv.className = "ranking";
+        var rank = i+1;
+        userDiv.innerHTML = "Ranking : " + rank;
+        temp.appendChild(userDiv);
+
         // Show username of the post
         var userDiv = document.createElement("div");
         userDiv.className = "postuser";

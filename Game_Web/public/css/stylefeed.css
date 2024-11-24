@@ -2,11 +2,6 @@
 .item2 { grid-area: menu; }
 .item3 { grid-area: main; }
 
-header{
-	background-image: url('bgPuna.png'); /* Set background image */
-    background-size: cover; /* Ensure the image covers the entire container */
-    background-position: center; /* Center the image */
-}
 
 
 .grid-container {
@@ -24,6 +19,8 @@ header{
   padding: 20px 0;
   font-size: 30px;
 }
+
+
 
 #posting{
 	text-align: right;
@@ -192,6 +189,19 @@ img{
     background-color: #f9f9f9;
     border-radius: 5px;
     border: 1px solid #ddd;
+}
+
+/* Style for the ranking display */
+.ranking {
+    font-size: 16px;               /* Set font size */
+    font-weight: bold;             /* Make the ranking text bold */
+    color: #333;                   /* Set text color to dark gray */
+    background-color: #f5f5f5;     /* Light gray background for the ranking section */
+    padding: 5px 10px;             /* Add some padding for spacing */
+    border-radius: 5px;            /* Rounded corners */
+    margin-bottom: 10px;           /* Space below the ranking */
+    display: inline-block;         /* Keep it inline but as a block for easier styling */
+    border: 1px solid #ccc;       /* Border with light gray color */
 }
 
 
