@@ -1,31 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 .item1 { grid-area: header;}
 .item2 { grid-area: menu; }
 .item3 { grid-area: main; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Charm", cursive;
+}
 
-
+body {
+	font-family: "Charm", cursive;
+    /* Set the background image correctly */
+    background: url('crab.png') no-repeat center -1400px;
+    background-size: cover;
+    color: #ffb300;
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center;     /* Vertically center */
+    min-height: 100vh;       /* Full viewport height */
+    flex-direction: column;
+}
 
 .grid-container {
   display: grid;
   grid-template-areas:
-    'header header header header'
-    'menu main main main';
+    'header'
+    'main';
   grid-gap: 10px;
-  background-color: #4cad4b;
+  background-color: rgba(255, 179, 0, 0.2);
   padding: 10px;
 }
 .grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
+  background: rgba(118, 35, 9, 0.5);
   text-align: center;
-  padding: 20px 0;
+  padding: 10px 0;
   font-size: 30px;
 }
 
+.grid-container .item1 {
+	background: rgba(118, 35, 9, 1);
+	font-size: 60px;
 
+}
 
 #posting{
-	text-align: right;
-	padding-right: 3%;
-	width:50%;
+	text-align: center;
+	justify-content: center; /* Horizontally center */
+    align-items: center;
+	width:100%;
+	color: #ffb300;
+	font-weight: bold;
+	font-size: 75px;
+	-webkit-text-stroke: 1px #000;
+	margin-left: 20%;
+	
 	
 }
 
@@ -56,15 +86,17 @@ hr {
 
 .newsfeed {
 	display: flex;
+	justify-content: center; /* Horizontally center */
+    align-items: center;
 	flex-wrap: wrap; /* รองรับการแสดงผลบนหน้าจอเล็ก */
-	width: 100%;
+	width: 96%;
 	text-align: left;
 	font-size: 18px; /* ลดขนาดฟอนต์ให้เหมาะกับการแสดงข้อมูล */
-	margin-top: 15px;
-	background-color: rgba(255, 255, 255, 0.9); /* พื้นหลังโปร่งแสง */
-	border: 1px solid #ddd; /* เพิ่มเส้นขอบ */
+	margin: 2%;
+	background-color: rgba(252, 211, 107, 0.9); /* พื้นหลังโปร่งแสง */
+	border: 3px solid #ffb300; /* เพิ่มเส้นขอบ */
 	border-radius: 10px;
-	padding: 10px; /* เพิ่มระยะห่างภายใน */
+	padding: 0px; /* เพิ่มระยะห่างภายใน */
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เงาเบาๆ เพื่อความโดดเด่น */
   }
   
@@ -72,29 +104,34 @@ hr {
   .postuser,
   .postlike,
   .posttime {
-	width: 30%; /* ปรับขนาดให้แสดงผล 3 คอลัมน์ */
+	width: 40%; /* ปรับขนาดให้แสดงผล 3 คอลัมน์ */
 	min-width: 150px; /* กำหนดขนาดขั้นต่ำ */
 	text-align: center;
 	padding: 10px; /* เพิ่มระยะห่างภายใน */
 	margin: 5px; /* ระยะห่างระหว่างกล่อง */
 	font-size: 16px; /* ขนาดฟอนต์ */
 	border-radius: 10px;
-	background-color: #f0f0f0; /* พื้นหลังสว่าง */
+	background-color: rgba(118, 35, 9, 100); /* พื้นหลังสว่าง */
   }
   
   .postuser {
-	background-color: #d5f5d5; /* พื้นหลังเขียวอ่อน */
+	font-weight: bold;
+	font-size: 18px;
+	background-color: rgba(118, 35, 9, 100); /* พื้นหลังเขียวอ่อน */
   }
   
   .postlike {
-	background-color: #f5d5d5; /* พื้นหลังแดงอ่อน */
+	font-weight: bold;
+	font-size: 18px;
+	background-color: rgba(118, 35, 9, 100); /* พื้นหลังแดงอ่อน */
   }
   
   .posttime {
-	background-color: #d5d5f5; /* พื้นหลังน้ำเงินอ่อน */
-	max-height: 150px;
+	background-color: rgba(118, 35, 9, 100); /* พื้นหลังน้ำเงินอ่อน */
+	max-height: 400px;
+	height: 200px;
 	text-align: center;
-	font-size: 30px;
+	font-size: 40px;
 	display: flex; /* Enable Flexbox */
 	justify-content: center; /* Center horizontally */
 	align-items: center; /* Center vertically */
@@ -130,24 +167,26 @@ img{
 }
 
 .like-button {
-	background-color: #4cad4b;
-	color: white;
+	background-color: #ffb300;
+	color: rgba(118, 35, 9, 100);
 	padding: 5px 15px;
 	border: none;
 	border-radius: 5px;
-	font-size: 16px;
+	font-weight: bold;
+	font-size: 18px;
 	cursor: pointer;
 	margin-left: 10px;
   }
   
   .like-button:hover {
-	background-color: #388e3c;
+	color: #ffb300;
+	background-color: rgba(118, 35, 9, 100);
   }
   
   .comment-textarea {
-	width: 90%;
-	min-width: 200px;
-	height: 80px;
+	width: 95%;
+	min-width: 150px;
+	height: 70px;
 	margin-bottom: 10px;
 	font-size: 16px;
 	padding: 10px;
@@ -156,17 +195,19 @@ img{
   }
   
   .comment-button {
-	background-color: #4cad4b;
-	color: white;
+	background-color: #ffb300;
+	color: rgba(118, 35, 9, 100);
 	padding: 5px 15px;
 	border: none;
 	border-radius: 5px;
-	font-size: 16px;
+	font-weight: bold;
+	font-size: 18px;
 	cursor: pointer;
   }
   
   .comment-button:hover {
-	background-color: #388e3c;
+	color: #ffb300;
+	background-color: rgba(118, 35, 9, 100);
   }
   
   .comment-display {
@@ -180,30 +221,55 @@ img{
   .post-description {
     max-height: 150px; /* กำหนดความสูงสูงสุดของข้อความอธิบาย */
 	overflow: scroll;
-    text-overflow: ellipsis; /* แสดง "..." เมื่อข้อความยาวเกิน */
-	max-width: 300px;
-    margin-bottom: 100px;
+    /*text-overflow: ellipsis;  แสดง "..." เมื่อข้อความยาวเกิน */
+	max-width: 400px;
+    margin-bottom: 30px;
+	margin-top: 30px;
     /* padding: 5px; */
-	padding-right: 200px;
+	padding-right: 30px;
     font-size: 16px;
     background-color: #f9f9f9;
     border-radius: 5px;
     border: 1px solid #ddd;
+	color: rgba(118, 35, 9, 100);
 }
 
 /* Style for the ranking display */
 .ranking {
     font-size: 16px;               /* Set font size */
     font-weight: bold;             /* Make the ranking text bold */
-    color: #333;                   /* Set text color to dark gray */
-    background-color: #f5f5f5;     /* Light gray background for the ranking section */
     padding: 5px 10px;             /* Add some padding for spacing */
-    border-radius: 5px;            /* Rounded corners */
     margin-bottom: 10px;           /* Space below the ranking */
     display: inline-block;         /* Keep it inline but as a block for easier styling */
-    border: 1px solid #ccc;       /* Border with light gray color */
+    text-align: center;
+    color: #ffb300;
+    background: rgba(118, 35, 9, 100);
+    border: 2px solid rgba(255, 255, 255, .2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 30px;
 }
 
+a {
+    font-size: 20px;               /* Set font size */
+    font-weight: bold;             /* Make the ranking text bold */
+    padding: 5px 10px;             /* Add some padding for spacing */
+          /* Space below the ranking */
+            /* Keep it inline but as a block for easier styling */
+    text-align: center;
+    background-color: #ffb300;
+	color: rgba(118, 35, 9, 100);
+    border: 0px solid rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    border-radius: 30px;
+	margin-left: 30%;
+	
+}
+
+a:hover {
+    display: inline-block;         /* Keep it inline but as a block for easier styling */
+    color: #ffb300;
+	background-color: rgba(118, 35, 9, 100);
+}
 
 @media only screen and (max-width: 767px) {
 	.newsfeed {
@@ -217,4 +283,6 @@ img{
 	  margin-bottom: 10px; /* เพิ่มระยะห่างด้านล่าง */
 	}
   }
+
+
   
