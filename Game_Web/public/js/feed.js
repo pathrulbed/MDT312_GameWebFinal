@@ -165,15 +165,36 @@ function showPost(data) {
         temp.appendChild(likeDiv);
 
         // Add a Like button
-        var likeButton = document.createElement("button");
-        likeButton.className = "like-button";
-        likeButton.innerHTML = "Like";
-        likeButton.setAttribute("data-score-id", data[keys[i]]["score_id"]); // Bind the score_id
-        likeButton.onclick = function () {
-            let scoreId = this.getAttribute("data-score-id");
-            likePost(scoreId); // Call likePost function with score_id
-        };
-        temp.appendChild(likeButton);
+var likeButton = document.createElement("button");
+likeButton.className = "like-button";
+likeButton.innerHTML = "Like";
+likeButton.setAttribute("data-score-id", data[keys[i]]["score_id"]); // Bind the score_id
+
+likeButton.onclick = function () {
+    let scoreId = this.getAttribute("data-score-id");
+    let username = getCookie('username'); // Get the username from cookies
+
+    // Retrieve the 'likeUsers' list from local storage for this post
+    let likedUsers = JSON.parse(localStorage.getItem(scoreId)) || [];
+
+    // Check if the user has already liked this post
+    if (!likedUsers.includes(username)) {
+        likePost(scoreId); // Call likePost function with score_id
+        
+        // Add the user to the list of users who liked this post
+        likedUsers.push(username);
+
+        // Save the updated list back to local storage
+        localStorage.setItem(scoreId, JSON.stringify(likedUsers));
+        
+        // Optionally, update UI to reflect that the user has liked the post
+        likeButton.innerHTML = "Liked"; // Change button text after liking
+    } else {
+        alert("You have already liked this post!");
+    }
+};
+
+temp.appendChild(likeButton);
 
         // Show time of post
         var timeDiv = document.createElement("div");
