@@ -13,8 +13,8 @@
 body {
 	font-family: "Charm", cursive;
     /* Set the background image correctly */
-    background: url('crab.png') center -500px  ;
-    background-size: contain;
+    background: url('crab.png')  center -1400px  ;
+    background-size: cover;
 
 	
     color: #ffb300;
@@ -107,7 +107,7 @@ hr {
 	padding: 0px; /* เพิ่มระยะห่างภายใน */
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เงาเบาๆ เพื่อความโดดเด่น */
   }
-  
+
 
   .postuser,
   .postlike,
@@ -117,7 +117,7 @@ hr {
 	text-align: center;
 	padding: 10px; /* เพิ่มระยะห่างภายใน */
 	margin: 5px; /* ระยะห่างระหว่างกล่อง */
-	margin-left: 2%;
+	margin-left: 1%;
 	margin-bottom: 1%;
 	font-size: 16px; /* ขนาดฟอนต์ */
 	border-radius: 10px;
@@ -194,7 +194,7 @@ img{
   }
   
   .comment-textarea {
-	width: 90%;
+	width: 80%;
 	min-width: 200px;
 	height: 80px;
 	margin-bottom: 10px;
@@ -234,10 +234,10 @@ img{
     max-height: 150px; /* ความสูงสูงสุด */
     height: 150px; /* ตั้งให้ขนาดเปลี่ยนแปลงตามเนื้อหา */
     overflow: auto; /* เพิ่ม scroll bar เมื่อเนื้อหาเกิน */
-    max-width: 400px; /* ความกว้างสูงสุด */
-    width: 100%; /* ให้รองรับขนาดเต็มของคอนเทนเนอร์ */
-    margin: 20px auto; /* จัดตำแหน่งให้อยู่ตรงกลางพร้อมเว้นระยะ */
-    padding: 10px; /* เพิ่มระยะภายใน */
+    max-width: 300px; /* ความกว้างสูงสุด */
+    width: 300px; /* ให้รองรับขนาดเต็มของคอนเทนเนอร์ */
+    margin: 20px auto;  /*จัดตำแหน่งให้อยู่ตรงกลางพร้อมเว้นระยะ */
+    padding: 10px; /*เพิ่มระยะภายใน */
     font-size: 16px; /* ขนาดตัวอักษร */
     line-height: 1.5; /* ระยะห่างระหว่างบรรทัด */
     background-color: #f9f9f9; /* สีพื้นหลัง */
