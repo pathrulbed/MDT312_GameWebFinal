@@ -26,6 +26,9 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `scores`
 --
+CREATE DATABASE IF NOT EXISTS online_game;
+USE online_game;
+
 
 CREATE TABLE `scores` (
   `score_id` int(11) NOT NULL,
