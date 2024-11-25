@@ -65,12 +65,30 @@ app.post('/regisDB', async (req, res) => {
     let query = "CREATE TABLE IF NOT EXISTS users (user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL,profilepic VARCHAR(255) DEFAULT 'avatar.png')";
     await queryDB(query);
 
+    let query1 = `SELECT username, password FROM users`;
+    let queryResponse = await queryDB(query1);
     let username = req.body.username;
     let password = req.body.password;
+
+    let creds = Object.assign({}, queryResponse)
+
+    let keys = Object.keys(creds);
+    for (let user of keys) {
+        if (creds[user].username == username) {
+           
+            return res.redirect('register.html?error=1');
+        }
+    }
+
+
+   
     let query2 = `INSERT INTO users (username, password) VALUES ('${username}', '${password}')`;
     await queryDB(query2);
 
     return res.redirect('login.html');
+
+    
+ 
 })
 
 //ทำให้สมบูรณ์

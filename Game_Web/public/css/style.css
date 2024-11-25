@@ -28,7 +28,7 @@ h1 {
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     border-radius: 30px;
     padding: 50px 30px;
-    margin-top: -100px;
+    margin-top: -5px;
 }
 
 .wrapper {
@@ -126,4 +126,8 @@ h1 {
 
 .bx.bxs-lock-alt {
 	color: #ffffff;
+}
+
+#errordisplay{
+    color: #ff0000;
 }
